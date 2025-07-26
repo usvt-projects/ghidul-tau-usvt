@@ -1,8 +1,9 @@
-# 📘 Ghidul tău USVT
+# 📘 Ghidul tău USVT  
+*Asistent virtual inteligent pentru studenții Universității de Științele Vieții din Timișoara*
 
-![Ghidul tău USVT](./ghidul-tau-usvt.png)
+<img src="./ghidul-tau-usvt.png" alt="Ghidul tău USVT" width="250" align="right">
 
-**Aplicație educațională AI** – Ghid virtual pentru studenții Universității de Științele Vieții „Regele Mihai I” din Timișoara
+**Aplicație educațională AI** – Ghid virtual pentru studenții Universității de Științele Vieții „Regele Mihai I” din Timișoara  
 
 ---
 

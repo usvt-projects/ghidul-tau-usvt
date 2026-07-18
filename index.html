@@ -1,30 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghidul Studentului USVT</title>
+  <meta name="description" content="Ghid bilingv, bazat pe surse oficiale, pentru admitere, programe și viața în campus la USVT.">
+  <meta name="theme-color" content="#063d59">
+  <title>Ghidul tău USVT – AI Student Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 4em;">
-  <h1>👩‍🎓Ghidul Studentului USVT</h1>
-  <img src="ghidul-tau-usvt.png" alt="Ghidul tău USVT" style="max-width: 300px;">
-  <p><strong>Asistent virtual pentru studenții Universității de Științele Vieții „Regele Mihai I” din Timișoara</strong></p>
- <p>Platforma digitală oficială pentru orientarea studenților și candidaților USVT.</p>
+<body>
+  <a class="skip-link" href="#assistant">Sari la asistent</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Ghidul tău USVT">
+      <span class="brand-mark">U</span>
+      <span><strong>Ghidul tău USVT</strong><small>AI Student Guide</small></span>
+    </a>
+    <nav aria-label="Navigare principală">
+      <a href="#assistant" data-i18n="navAsk">Întreabă</a>
+      <a href="#sources" data-i18n="navSources">Surse</a>
+      <a href="#about" data-i18n="navAbout">Despre</a>
+    </nav>
+    <button class="language-toggle" id="languageToggle" type="button" aria-label="Change language">
+      <span id="languageLabel">EN</span>
+    </button>
+  </header>
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/....';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span><span data-i18n="eyebrow">Informații universitare, simplificate</span></div>
+        <h1 data-i18n="heroTitle">Răspunsuri clare pentru drumul tău la USVT.</h1>
+        <p data-i18n="heroText">Descoperă admiterea, programele de studiu și viața în campus printr-un ghid bilingv care indică întotdeauna sursa oficială.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#assistant" data-i18n="askNow">Întreabă acum</a>
+          <a class="button button-secondary" href="https://usvt.ro/admitere" target="_blank" rel="noopener" data-i18n="officialAdmission">Admitere oficială ↗</a>
+        </div>
+        <div class="trust-row" aria-label="Project principles">
+          <span><i>✓</i><span data-i18n="trust1">Surse oficiale</span></span>
+          <span><i>✓</i><span data-i18n="trust2">Română & English</span></span>
+          <span><i>✓</i><span data-i18n="trust3">Fără răspunsuri inventate</span></span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="mascot-card"><img src="ghidul-tau-usvt.png" alt=""><div class="status-pill"><span></span>Source-grounded</div></div>
+        <div class="floating-card card-one"><small data-i18n="cardQuestion">Întrebare</small><strong data-i18n="cardQuestionText">Ce programe pot studia?</strong></div>
+        <div class="floating-card card-two"><small data-i18n="cardSource">Sursă</small><strong>usvt.ro/courses</strong></div>
+      </div>
+    </section>
 
+    <section class="assistant-section" id="assistant">
+      <div class="section-heading">
+        <span class="section-number">01</span>
+        <div><p class="kicker" data-i18n="assistantKicker">Asistent universitar</p><h2 data-i18n="assistantTitle">Cu ce te putem ajuta?</h2></div>
+      </div>
+
+      <div class="assistant-shell">
+        <div class="quick-topics" role="group" aria-label="Întrebări rapide">
+          <button type="button" data-question-ro="Cum mă înscriu la USVT?" data-question-en="How do I apply to USVT?"><span>01</span><b data-i18n="topicAdmission">Admitere</b></button>
+          <button type="button" data-question-ro="Ce facultăți sunt la USVT?" data-question-en="Which faculties does USVT have?"><span>02</span><b data-i18n="topicFaculties">Facultăți</b></button>
+          <button type="button" data-question-ro="Ce programe de studiu există?" data-question-en="What study programs are available?"><span>03</span><b data-i18n="topicPrograms">Programe</b></button>
+          <button type="button" data-question-ro="Ce facilități are campusul?" data-question-en="What facilities does the campus offer?"><span>04</span><b data-i18n="topicCampus">Campus</b></button>
+        </div>
+
+        <div class="conversation" aria-live="polite">
+          <div class="welcome-message" id="welcomeMessage">
+            <div class="bot-avatar"><img src="ghidul-tau-usvt.png" alt=""></div>
+            <div><strong data-i18n="welcomeTitle">Bun venit!</strong><p data-i18n="welcomeText">Scrie o întrebare sau alege un subiect. Îți voi răspunde folosind informații publicate pe site-ul oficial USVT.</p></div>
+          </div>
+          <div id="answerArea"></div>
+        </div>
+
+        <form class="question-form" id="questionForm">
+          <label class="sr-only" for="questionInput">Întrebarea ta</label>
+          <input id="questionInput" type="text" autocomplete="off" maxlength="240" data-i18n-placeholder="questionPlaceholder" placeholder="Ex.: Care sunt pașii pentru admitere?">
+          <button type="submit" aria-label="Trimite întrebarea"><span data-i18n="send">Trimite</span><b>↗</b></button>
+        </form>
+        <p class="assistant-note" data-i18n="assistantNote">Prototip informativ. Pentru decizii administrative, verifică întotdeauna pagina oficială indicată.</p>
+      </div>
+    </section>
+
+    <section class="sources-section" id="sources">
+      <div class="section-heading light">
+        <span class="section-number">02</span>
+        <div><p class="kicker" data-i18n="sourcesKicker">Transparență</p><h2 data-i18n="sourcesTitle">Fiecare răspuns are o sursă.</h2></div>
+      </div>
+      <div class="source-grid">
+        <a href="https://usvt.ro/admitere" target="_blank" rel="noopener"><span>01</span><div><b data-i18n="sourceAdmission">Admitere</b><small>usvt.ro/admitere</small></div><i>↗</i></a>
+        <a href="https://usvt.ro/courses" target="_blank" rel="noopener"><span>02</span><div><b data-i18n="sourcePrograms">Programe de studiu</b><small>usvt.ro/courses</small></div><i>↗</i></a>
+        <a href="https://usvt.ro/" target="_blank" rel="noopener"><span>03</span><div><b data-i18n="sourceCampus">Campus universitar</b><small>usvt.ro</small></div><i>↗</i></a>
+        <a href="https://usvt.ro/contact" target="_blank" rel="noopener"><span>04</span><div><b data-i18n="sourceContact">Contact oficial</b><small>usvt.ro/contact</small></div><i>↗</i></a>
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="about-card">
+        <div><span class="section-number">03</span><p class="kicker" data-i18n="aboutKicker">Build Week 2026</p><h2 data-i18n="aboutTitle">Creat pentru acces mai simplu la educație.</h2></div>
+        <div><p data-i18n="aboutText">„Ghidul tău USVT” transformă informația universitară dispersată într-o experiență clară, verificabilă și accesibilă. Prototipul este o extindere realizată cu Codex și GPT‑5.6 în cadrul OpenAI Build Week.</p><div class="about-tags"><span>Education</span><span>Source-grounded</span><span>Accessibility</span></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div><strong>Ghidul tău USVT</strong><small data-i18n="footerNote">Prototip educațional open-source</small></div><p>Built with Codex + GPT‑5.6 · OpenAI Build Week 2026</p></footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
-

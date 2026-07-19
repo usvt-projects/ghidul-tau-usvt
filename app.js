@@ -67,7 +67,7 @@ function renderAnswer(question) {
 
 // 6. Security escape helper for user input
 function escapeHtml(value) {
-  return returnString(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 // 7. Event Listeners for UI interaction

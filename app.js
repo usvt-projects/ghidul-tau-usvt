@@ -58,11 +58,15 @@ function renderAnswer(question) {
   const trans = translations[language];
   const answerArea = document.getElementById('answerArea');
   
-  if (item) {
-    answerArea.innerHTML = `<p>${item.answer[language] || item.answer.ro}</p><p class="source-tag"><strong>${trans.navSources}:</strong> <a href="${item.source}" target="_blank">${item.source}</a></p>`;
-  } else {
-    answerArea.innerHTML = `<p>${language === 'ro' ? 'Ne pare rău, nu am găsit un răspuns exact. Vă rugăm să verificați site-ul oficial USVT.' : 'Sorry, we could not find an exact answer. Please check the official USVT website.'}</p>`;
+  if (answerArea) {
+    if (item && item.answer) {
+      const answerText = item.answer[language] || item.answer.ro || '';
+      answerArea.innerHTML = `<p>${answerText}</p><p class="source-tag"><strong>${trans.navSources}:</strong> <a href="${item.source}" target="_blank">${item.source}</a></p>`;
+    } else {
+      answerArea.innerHTML = `<p>${language === 'ro' ? 'Ne pare rău, nu am găsit un răspuns exact. Vă rugăm să verificați site-ul oficial USVT.' : 'Sorry, we could not find an exact answer. Please check the official USVT website.'}</p>`;
+    }
   }
+}
 }
 
 // 6. Security escape helper for user input

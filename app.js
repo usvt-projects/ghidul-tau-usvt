@@ -22,8 +22,8 @@ const translations = {
 
 let language = 'ro';
 
-// 2. Curatare text si eliminare diacritice pentru cautare flexibila
-const normalizeString = s => {
+// 2. Curatare text si transformare in litere mici
+const cleanText = s => {
   if (!s) return '';
   return s.toLowerCase()
           .normalize('NFD')
@@ -42,32 +42,27 @@ function setLanguage(next) {
   });
 }
 
-// 4. Algoritm flexibil de cautare bazat pe potrivirea cuvintelor-cheie
+// 4. Cautare simpla si directa in baza de date USVT
 function findAnswer(question) {
-  const q = normalizeString(question);
+  const q = cleanText(question);
   if (!q) return null;
   
-  let bestMatch = null;
-  let bestScore = 0;
+  let match = null;
   const knowledgeBase = window.USVT_KNOWLEDGE || [];
   
+  // Cautam daca textul introdus contine vreun cuvant cheie din baza de date
   knowledgeBase.forEach(item => {
-    let score = 0;
     if (item.keywords && Array.isArray(item.keywords)) {
       item.keywords.forEach(keyword => {
-        const normalizedKeyword = normalizeString(keyword);
-        if (normalizedKeyword && q.includes(normalizedKeyword)) {
-          score += 2;
+        const ck = cleanText(keyword);
+        if (ck && (q.includes(ck) || ck.includes(q))) {
+          match = item;
         }
       });
     }
-    if (score > bestScore) {
-      bestScore = score;
-      bestMatch = item;
-    }
   });
   
-  return bestMatch;
+  return match;
 }
 
 // 5. Afisarea raspunsului in zona de chat
@@ -82,16 +77,17 @@ function renderAnswer(question) {
       const sourceLabel = trans.navSourcesLabel || 'Surse';
       answerArea.innerHTML = `<p>${answerText}</p><p class="source-tag"><strong>${sourceLabel}:</strong> <a href="${item.source}" target="_blank">${item.source}</a></p>`;
     } else {
-      answerArea.innerHTML = `<p>${language === 'ro' ? 'Ne pare rău, nu am găsit un răspuns exact. Încercați cuvinte simple: admitere, facultati, campus.' : 'Sorry, we could not find an exact answer. Please use simple keywords.'}</p>`;
+      answerArea.innerHTML = `<p>${language === 'ro' ? 'Nu am găsit un răspuns exact. Încearcă cuvinte simple ca: admitere, facultati, campus.' : 'Answer not found. Please try keywords like: admission, faculties, campus.'}</p>`;
     }
   }
 }
 
-// 6. Initializare directa a evenimentelor (Fara blocaje de asteptare)
+// 6. Initializare evenimente
 document.getElementById('languageToggle')?.addEventListener('click', () => {
   setLanguage(language === 'ro' ? 'en' : 'ro');
 });
 
+// Trimitere formular manual
 document.getElementById('questionForm')?.addEventListener('submit', event => {
   event.preventDefault();
   const inputEl = document.getElementById('questionInput');
@@ -101,9 +97,10 @@ document.getElementById('questionForm')?.addEventListener('submit', event => {
   }
 });
 
-// Ascultător pentru butoanele mari din HTML
+// Ascultator complet pentru butoanele rapide
 document.querySelectorAll('.quick-topics button, .quick-topic-card, [data-topic], .quick-topics a').forEach(element => {
   element.addEventListener('click', (e) => {
+    e.preventDefault();
     const text = element.textContent ? element.textContent.toLowerCase() : '';
     let query = 'admitere';
     

@@ -52,7 +52,7 @@ function findAnswer(question) {
   return bestMatch;
 }
 
-// 5. Render answer with source fallback and safety HTML escaping
+// 5. Render answer with source fallback
 function renderAnswer(question) {
   const item = findAnswer(question);
   const trans = translations[language];
@@ -67,29 +67,30 @@ function renderAnswer(question) {
     }
   }
 }
-}
 
-// 6. Security escape helper for user input
-function escapeHtml(value) {
-    return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-// 7. Event Listeners for UI interaction
+// 6. Event Listeners for UI interaction
 document.getElementById('languageToggle')?.addEventListener('click', () => {
   setLanguage(language === 'ro' ? 'en' : 'ro');
 });
 
+// Fixed direct messaging submit trigger
 document.getElementById('questionForm')?.addEventListener('submit', event => {
   event.preventDefault();
   const inputEl = document.getElementById('questionInput');
-  const query = inputEl.value.trim();
-  if (query) renderAnswer(query);
+  if (inputEl) {
+    const query = inputEl.value.trim();
+    if (query) renderAnswer(query);
+  }
 });
 
+// Fixed quick topics button interaction
 document.querySelectorAll('.quick-topics button').forEach(button => {
   button.addEventListener('click', () => {
-    const query = language === 'ro' ? button.dataset.questionRo : button.dataset.questionEn;
-    document.getElementById('questionInput').value = query;
-    setLanguage(language);
+    const query = language === 'ro' ? button.getAttribute('data-question-ro') : button.getAttribute('data-question-en');
+    const inputEl = document.getElementById('questionInput');
+    if (inputEl && query) {
+      inputEl.value = query;
+      renderAnswer(query);
+    }
   });
 });

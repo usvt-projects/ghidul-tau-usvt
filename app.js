@@ -49,7 +49,6 @@ function findAnswer(question) {
   
   let bestMatch = null;
   let bestScore = 0;
-  
   const knowledgeBase = window.USVT_KNOWLEDGE || [];
   
   knowledgeBase.forEach(item => {
@@ -58,16 +57,10 @@ function findAnswer(question) {
       item.keywords.forEach(keyword => {
         const normalizedKeyword = normalizeString(keyword);
         if (normalizedKeyword && q.includes(normalizedKeyword)) {
-          score += 2; // Scoring mai mare pentru potrivire directa de cuvant-cheie
+          score += 2;
         }
       });
     }
-    
-    // Verificare suplimentara in textul raspunsului pentru siguranta
-    if (item.answer && item.answer.ro && normalizeString(item.answer.ro).includes(q)) {
-      score += 1;
-    }
-    
     if (score > bestScore) {
       bestScore = score;
       bestMatch = item;
@@ -89,46 +82,41 @@ function renderAnswer(question) {
       const sourceLabel = trans.navSourcesLabel || 'Surse';
       answerArea.innerHTML = `<p>${answerText}</p><p class="source-tag"><strong>${sourceLabel}:</strong> <a href="${item.source}" target="_blank">${item.source}</a></p>`;
     } else {
-      answerArea.innerHTML = `<p>${language === 'ro' ? 'Ne pare rău, nu am găsit un răspuns exact pentru această întrebare. Vă rugăm să folosiți cuvinte cheie simple (ex: admitere, facultati, campus) sau să verificați site-ul oficial USVT.' : 'Sorry, we could not find an exact answer. Please use simple keywords or check the official USVT website.'}</p>`;
+      answerArea.innerHTML = `<p>${language === 'ro' ? 'Ne pare rău, nu am găsit un răspuns exact. Încercați cuvinte simple: admitere, facultati, campus.' : 'Sorry, we could not find an exact answer. Please use simple keywords.'}</p>`;
     }
   }
 }
 
-// 6. Initializare evenimente dupa incarcarea completa a paginii HTML
-document.addEventListener('DOMContentLoaded', () => {
-  // Comutator limba
-  document.getElementById('languageToggle')?.addEventListener('click', () => {
-    setLanguage(language === 'ro' ? 'en' : 'ro');
-  });
+// 6. Initializare directa a evenimentelor (Fara blocaje de asteptare)
+document.getElementById('languageToggle')?.addEventListener('click', () => {
+  setLanguage(language === 'ro' ? 'en' : 'ro');
+});
 
-  // Trimitere formular manual
-  document.getElementById('questionForm')?.addEventListener('submit', event => {
-    event.preventDefault();
+document.getElementById('questionForm')?.addEventListener('submit', event => {
+  event.preventDefault();
+  const inputEl = document.getElementById('questionInput');
+  if (inputEl) {
+    const query = inputEl.value.trim();
+    if (query) renderAnswer(query);
+  }
+});
+
+// Ascultător pentru butoanele mari din HTML
+document.querySelectorAll('.quick-topics button, .quick-topic-card, [data-topic], .quick-topics a').forEach(element => {
+  element.addEventListener('click', (e) => {
+    const text = element.textContent ? element.textContent.toLowerCase() : '';
+    let query = 'admitere';
+    
+    if (text.includes('admitere')) query = 'admitere';
+    else if (text.includes('facult')) query = 'facultate';
+    else if (text.includes('programe') || text.includes('studiu')) query = 'program';
+    else if (text.includes('campus') || text.includes('camin')) query = 'campus';
+    
     const inputEl = document.getElementById('questionInput');
     if (inputEl) {
-      const query = inputEl.value.trim();
-      if (query) renderAnswer(query);
+      inputEl.value = element.textContent ? element.textContent.trim() : query;
     }
-  });
-
-  // Logica reparata pentru butoanele rapide (01 Admitere, 02 Facultati etc.)
-  document.querySelectorAll('.quick-topics button, .quick-topic-card, [data-topic]').forEach(element => {
-    element.addEventListener('click', (e) => {
-      // Determinam subiectul in funcție de textul sau atributele butonului apasat
-      const text = element.textContent ? element.textContent.toLowerCase() : '';
-      let query = 'admitere'; // Valoare de rezerva
-      
-      if (text.includes('admitere')) query = 'admitere';
-      else if (text.includes('facult')) query = 'facultate';
-      else if (text.includes('programe') || text.includes('studiu')) query = 'program';
-      else if (text.includes('campus') || text.includes('camin')) query = 'campus';
-      
-      const inputEl = document.getElementById('questionInput');
-      if (inputEl) {
-        inputEl.value = element.textContent ? element.textContent.trim() : query;
-      }
-      
-      renderAnswer(query);
-    });
+    
+    renderAnswer(query);
   });
 });

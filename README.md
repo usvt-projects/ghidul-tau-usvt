@@ -1,7 +1,14 @@
 # Ghidul tău USVT – AI Student Guide
 
-A bilingual, source-grounded university information assistant for prospective and current students of the King Michael I University of Life Sciences of Timișoara (USVT).
-
+Ghidul tău USVT is an AI-powered bilingual student assistant that helps prospective and current students find verified university information in seconds while always linking to official USVT sources.
+## Key Features
+- AI-powered bilingual assistant
+- Source-grounded answers from official USVT pages
+- Romanian and English interface
+- Transparent source attribution
+- Responsive and accessible design
+- Open-source project built during OpenAI Build Week 2026
+  
 This repository contains the **OpenAI Build Week 2026 extension** of a pre-existing concept. The original repository was a single presentation page. The Build Week version adds a complete responsive interface, Romanian/English localization, natural-language topic matching, a verified knowledge layer, source attribution, uncertainty handling, accessibility improvements, and technical documentation.
 
 ## What the project does

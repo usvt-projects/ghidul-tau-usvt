@@ -72,12 +72,21 @@ function renderAnswer(question) {
   const answerArea = document.getElementById('answerArea');
   
   if (answerArea) {
-    if (item && item.answer) {
-      const answerText = item.answer[language] || item.answer.ro || '';
-      const sourceLabel = trans.navSourcesLabel || 'Surse';
-      answerArea.innerHTML = `<p>${answerText}</p><p class="source-tag"><strong>${sourceLabel}:</strong> <a href="${item.source}" target="_blank">${item.source}</a></p>`;
+    if (item) {
+  const answerText = item[language] || item.ro || '';
+  const sourceLabel = trans.navSourcesLabel || 'Surse';
+  const sourceUrl = item.url || '#';
+  const sourceText = item.source || sourceUrl;
+
+  answerArea.innerHTML = `
+    <p>${answerText}</p>
+    <p class="source-tag">
+      <strong>${sourceLabel}:</strong>
+      <a href="${sourceUrl}" target="_blank">${sourceText}</a>
+    </p>
+  `;
     } else {
-      answerArea.innerHTML = `<p>${language === 'ro' ? 'Nu am găsit un răspuns exact. Încearcă cuvinte simple ca: admitere, facultati, campus.' : 'Answer not found. Please try keywords like: admission, faculties, campus.'}</p>`;
+      answerArea.innerHTML = `<p>${language === 'ro' ? 'Nu am găsit un răspuns exact. Încearcă cuvinte simple ca: admitere, facultăți, campus.' : 'Answer not found. Please try keywords like: admission, faculties, campus.'}</p>`;
     }
   }
 }

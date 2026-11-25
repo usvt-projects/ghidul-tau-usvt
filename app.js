@@ -46,23 +46,27 @@ function setLanguage(next) {
 function findAnswer(question) {
   const q = cleanText(question);
   if (!q) return null;
-  
+
   let match = null;
+  let fallback = null;
   const knowledgeBase = window.USVT_KNOWLEDGE || [];
-  
-  // Cautam daca textul introdus contine vreun cuvant cheie din baza de date
-  knowledgeBase.forEach(item => {
-    if (item.keywords && Array.isArray(item.keywords)) {
-      item.keywords.forEach(keyword => {
-        const ck = cleanText(keyword);
-        if (ck && (q.includes(ck) || ck.includes(q))) {
-          match = item;
-        }
-      });
+
+  for (const item of knowledgeBase) {
+    if (!Array.isArray(item.keywords)) continue;
+
+    for (const keyword of item.keywords) {
+      const ck = cleanText(keyword);
+      if (!ck || !(q.includes(ck) || ck.includes(q))) continue;
+
+      if (item.id === 'contact' && ck === 'unde') {
+        fallback = item;
+      } else {
+        match = item;
+      }
     }
-  });
-  
-  return match;
+  }
+
+  return match || fallback;
 }
 
 // 5. Afisarea raspunsului in zona de chat
